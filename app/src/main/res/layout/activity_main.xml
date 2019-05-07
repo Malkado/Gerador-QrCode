@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:gravity="center">
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_github"
+        android:onClick="btngoogle"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/git"
+        android:layout_below="@id/editText"
+        />
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/google_play"
+        android:layout_toRightOf="@id/git"
+        android:onClick="btngit"
+        android:id="@+id/google"
+        android:layout_below="@id/editText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="O que deseja transformar em QrCode?"/>
+
+    <Button
+        android:onClick="GerarQr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gerar"
+        android:layout_below="@id/git"
+        android:id="@+id/gerar"/>
+
+    <ImageView
+        android:id="@+id/imageViewBitmap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gerar"/>
+
+
+</RelativeLayout>
