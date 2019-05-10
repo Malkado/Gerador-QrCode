@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.os.Environment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,8 +19,12 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import  java.io.File;
 
 import static android.graphics.Color.WHITE;
 
@@ -27,12 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewBitmap;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageViewBitmap=findViewById(R.id.imageViewBitmap);
-
+        Bitmap imagem;
     }
     public void GerarQr(View view) {
         try {
@@ -106,11 +112,27 @@ public class MainActivity extends AppCompatActivity {
 
         canvas.drawBitmap(bitmap, new Matrix(), null);
 
-        int centreX = (canvasWidth  - overlay.getWidth()) /2;
-        int centreY = (canvasHeight - overlay.getHeight()) /2 ;
+        int centreX = (canvasWidth - overlay.getWidth()) / 2;
+        int centreY = (canvasHeight - overlay.getHeight()) / 2;
         canvas.drawBitmap(overlay, centreX, centreY, null);
+
+        save(combined);
         return combined;
 
+    }public void save(Bitmap image){
+        try{
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.PNG,100,stream);
 
+            byte [] bytes = stream.toByteArray();
+            String nomearquivo =Environment.getExternalStorageDirectory().getAbsolutePath() + "image.png";
+
+            FileOutputStream fos = new FileOutputStream(nomearquivo);
+            fos.write(bytes);
+            fos.close();
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
     }
 }
