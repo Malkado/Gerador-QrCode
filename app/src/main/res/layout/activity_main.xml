@@ -36,12 +36,19 @@ android:layout_height="match_parent"
         android:text="Gerar"
         android:layout_below="@id/git"
         android:id="@+id/gerar"/>
+    <Button
+        android:onClick="save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="salvar"
+        android:layout_below="@id/gerar"
+        android:id="@+id/salvar"/>
 
     <ImageView
         android:id="@+id/imageViewBitmap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gerar"/>
+        android:layout_below="@id/salvar"/>
 
 
 </RelativeLayout>

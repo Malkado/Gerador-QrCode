@@ -1,10 +1,14 @@
 package com.example.qrcode;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +33,7 @@ import  java.io.File;
 import static android.graphics.Color.WHITE;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int MY_STOREGE_REQUEST_CODE =1 ;
     private ImageView imageViewBitmap;
 
 
@@ -38,7 +43,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageViewBitmap=findViewById(R.id.imageViewBitmap);
-        Bitmap imagem;
+
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_STOREGE_REQUEST_CODE);
+
+        }
+
     }
     public void GerarQr(View view) {
         try {
@@ -130,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos = new FileOutputStream(nomearquivo);
             fos.write(bytes);
             fos.close();
+
         }catch (Exception e){
             e.printStackTrace();
 
