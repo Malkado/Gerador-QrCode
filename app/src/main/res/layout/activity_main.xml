@@ -5,7 +5,7 @@ android:id="@+id/activity_main"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
     android:gravity="center">
-    <ImageButton
+   <!-- <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_github"
@@ -13,15 +13,22 @@ android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:id="@+id/git"
         android:layout_below="@id/editText"
-        />
-    <ImageButton
+        />-->
+    <!--<ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/google_play"
         android:layout_toRightOf="@id/git"
         android:onClick="btngit"
         android:id="@+id/google"
-        android:layout_below="@id/editText"/>
+        android:layout_below="@id/editText"/>-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nome"
+       android:layout_below="@id/editText"
+        android:hint="Qual nome do QrCode?"
+        />
 
     <EditText
         android:layout_width="match_parent"
@@ -34,7 +41,7 @@ android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Gerar"
-        android:layout_below="@id/git"
+        android:layout_below="@id/nome"
         android:id="@+id/gerar"/>
     <Button
         android:onClick="save"
@@ -49,6 +56,11 @@ android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/salvar"/>
+    <ImageView
+        android:id="@+id/imageViewBitmap2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageViewBitmap"/>
 
 
 </RelativeLayout>

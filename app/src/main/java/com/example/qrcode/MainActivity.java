@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -23,8 +24,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,10 @@ import static android.graphics.Color.WHITE;
 public class MainActivity extends AppCompatActivity {
     private static final int MY_STOREGE_REQUEST_CODE =1 ;
     private ImageView imageViewBitmap;
-
+    private ImageView imagem;
+    EditText nome;
+    File path;
+    Thread thread;
 
 
     @Override
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageViewBitmap=findViewById(R.id.imageViewBitmap);
+        imagem=findViewById(R.id.imageViewBitmap2);
+        thread = new Thread();
+        nome=findViewById(R.id.nome);
 
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             int height = 300;
             int smallestDimension = width < height ? width : height;
 
-            EditText editText = (EditText) findViewById(R.id.editText);
+            EditText editText =findViewById(R.id.editText);
             String qrCodeData = editText.getText().toString();
 
             String charset = "UTF-8";
@@ -130,22 +137,33 @@ public class MainActivity extends AppCompatActivity {
 
         save(combined);
         return combined;
+    }public void save(Bitmap bmp){
 
-    }public void save(Bitmap image){
+
+        path= Environment.getExternalStorageDirectory();
+        File dir= new File(path + "/GenerateQrCode/");
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+
+        File file= new File(dir,nome.getText().toString()+".png");
+        OutputStream out;
         try{
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.PNG,100,stream);
+            out=new FileOutputStream(file);
+            if(bmp.compress(Bitmap.CompressFormat.JPEG,100, out))
+            {
+                Toast saved = Toast.makeText(getApplicationContext(), "Image saved.", Toast.LENGTH_LONG);
+                saved.show();
+            }
+            else{
+                Toast unsaved = Toast.makeText(getApplicationContext(), "Image not save.", Toast.LENGTH_LONG);
+                unsaved.show();
+            }
 
-            byte [] bytes = stream.toByteArray();
-            String nomearquivo =Environment.getExternalStorageDirectory().getAbsolutePath() + "image.png";
-
-            FileOutputStream fos = new FileOutputStream(nomearquivo);
-            fos.write(bytes);
-            fos.close();
 
         }catch (Exception e){
-            e.printStackTrace();
+            e.printStackTrace();}
 
-        }
+
     }
 }
