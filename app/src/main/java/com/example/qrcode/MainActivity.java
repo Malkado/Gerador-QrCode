@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
             out=new FileOutputStream(file);
             if(bmp.compress(Bitmap.CompressFormat.PNG,100, out))
             {
-                Toast saved = Toast.makeText(getApplicationContext(), "Image saved.", Toast.LENGTH_LONG);
+                Toast saved = Toast.makeText(getApplicationContext(), "Imagem foi salva com sucesso!", Toast.LENGTH_LONG);
                 saved.show();
                 nome.setText("");
             }
             else{
-                Toast unsaved = Toast.makeText(getApplicationContext(), "Image not save.", Toast.LENGTH_LONG);
+                Toast unsaved = Toast.makeText(getApplicationContext(), "Falha ao tentar salvar a imagem.", Toast.LENGTH_LONG);
                 unsaved.show();
             }
         }catch (Exception e){
