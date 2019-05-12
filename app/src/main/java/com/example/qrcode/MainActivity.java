@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewBitmap;
     private ImageView imagem;
     EditText nome;
-    File path;
+    File  transfer;
     Thread thread;
+    Bitmap imagembit;
 
 
     @Override
@@ -135,35 +136,37 @@ public class MainActivity extends AppCompatActivity {
         int centreY = (canvasHeight - overlay.getHeight()) / 2;
         canvas.drawBitmap(overlay, centreX, centreY, null);
 
-        save(combined);
+        presave(combined);
         return combined;
-    }public void save(Bitmap bmp){
-
-
-        path= Environment.getExternalStorageDirectory();
+    }public void presave(Bitmap bmp){
+        File path= Environment.getExternalStorageDirectory();
         File dir= new File(path + "/GenerateQrCode/");
         if(!dir.isDirectory()){
             dir.mkdir();
         }
-
         File file= new File(dir,nome.getText().toString()+".png");
+        imagembit=bmp;
+        transfer=file;
+
+
+    }public void save(View v){
+        Bitmap bmp = imagembit;
+        File file= transfer;
         OutputStream out;
         try{
             out=new FileOutputStream(file);
-            if(bmp.compress(Bitmap.CompressFormat.JPEG,100, out))
+            if(bmp.compress(Bitmap.CompressFormat.PNG,100, out))
             {
                 Toast saved = Toast.makeText(getApplicationContext(), "Image saved.", Toast.LENGTH_LONG);
                 saved.show();
+                nome.setText("");
             }
             else{
                 Toast unsaved = Toast.makeText(getApplicationContext(), "Image not save.", Toast.LENGTH_LONG);
                 unsaved.show();
             }
-
-
         }catch (Exception e){
             e.printStackTrace();}
-
 
     }
 }
